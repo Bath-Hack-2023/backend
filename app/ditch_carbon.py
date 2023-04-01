@@ -8,6 +8,7 @@ def getCarbonData(product, manufacturer):
     headers = {"accept": "application/json", "Authorization": "Bearer 92d3af4ac158430ec82fd01adf0093de"}
     response = (requests.get(url, headers=headers)).json()
     if "errors" in response:
+
         # TODO: Handle error with chatgpt
         return getCarbonInfoOne(product, manufacturer)
     return response["carbon_footprint"]
