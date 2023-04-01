@@ -93,5 +93,3 @@ def getCarbonInfoMultiple(productNames):
 
 
 
-arrayOfProductNames = ("Apple iPhone 13", "Lenovo V15 G2 ITL Laptop Core i5 8GB 256GB SSD 15.6 Inch Windows 11 Pro", "Dell XPS13 9370")
-print(getCarbonInfoMultiple(arrayOfProductNames))

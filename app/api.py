@@ -4,11 +4,16 @@ from flask_cors import CORS, cross_origin
 import html_parser
 import config
 from html_parser import *
+from chat_gpt import *
 from util import *
 import time
 
 app = Flask(__name__)
 cors = CORS(app)
+
+# Connect to firebase and update state
+db = get_firestore_client(config.firebase_creds)
+
 
 
 @app.route('/post/item', methods=['POST'])
@@ -19,11 +24,8 @@ def get_url():
         url = data['url']
         client_id = data['client_id']
 
-        # Connect to firebase and update state
-        db = get_firestore_client(config.firebase_creds)
-        update_state(db, "Parsing HTML", client_id)
-
         # Get the item title
+        update_state(db, "Parsing HTML", client_id)
         product_title, error = getProductTitle(url)
         
         # Check if there was an error getting title
@@ -32,15 +34,27 @@ def get_url():
             update_state(db, f"Error occured: {error}", client_id)
             return jsonify({"error": f"Error occured while parsing html: {error}", "data": None}), 200
         
+        # Use chat gpt to extract product name and company
+        update_state(db, "Extracting product information", client_id)
+        product_info = extractInfoOne(product_title)
+
+        if product_info == None:
+            update_state(db, f"Error while extracting product information", client_id)
+            return jsonify({"error": f"Error while extracting product information", "data": None}), 200
+        
+        product_name = product_info[0].strip()
+        manufacturer = product_info[1].strip()
+        
+
         # Update state for client
         update_state(db, "Sending data", client_id)
 
         # Respond
-        return jsonify({"error": None, "data":{"product_title": product_title}}), 200
+        return jsonify({"error": None, "data":{"product_title": product_title, "product_name": product_name, "manufacturer": manufacturer}}), 200
 
     except Exception as e:
         print(e)
-        update_state(db, f"Error occured: {error}", client_id)
+        update_state(db, f"Error occured: {e}", client_id)
         return jsonify({"error": f"Ooops something went wrong: {e}", "data": None}), 400
 
 
