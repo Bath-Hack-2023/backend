@@ -69,6 +69,7 @@ def get_url():
 
     
 
+app.listen
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=config.http_port, debug=True)
 
