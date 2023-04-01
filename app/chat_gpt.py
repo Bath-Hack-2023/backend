@@ -1,4 +1,5 @@
 import openai
+import re
 
 # Put key in env file.
 openai.api_key = "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"
@@ -65,7 +66,6 @@ def getCarbonInfoOne(productName):
 # return None.
 def getCarbonInfoMultiple(productNames):
     productNames = str(productNames)
-    print(productNames)
     try:
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
                                                 temperature=0.1,
@@ -74,11 +74,20 @@ def getCarbonInfoMultiple(productNames):
                                                                       "titles."
                                                                       "Return the carbon emissions "
                                                                       "of its life cycle in kg CO2e for each, split "
-                                                                      "by commas, and no other words."},
+                                                                      "by commas, and no other words. "},
                                                           {
                                                               "role": "user",
                                                               "content": productNames}])
-        return response.choices[0].message.content.split(',')
+
+        response = response.choices[0].message.content
+        response = re.split(': |,', response)
+
+        i = 1
+        result = []
+        while(i<len(response)):
+            result.append(response[1])
+            i+=2
+        return result
     except Exception as e:
         return None
 
