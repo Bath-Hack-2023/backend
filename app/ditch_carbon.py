@@ -10,5 +10,3 @@ def getCarbonData(product, manufacturer):
         print("This is an error")
     else:
         return response["carbon_footprint"]
-
-getCarbonData("Cat food", "Mars Incorporated")
