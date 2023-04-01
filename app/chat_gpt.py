@@ -91,3 +91,21 @@ def getCarbonInfoMultiple(productNames):
         return result
     except Exception as e:
         return None
+
+
+def getCarbonInfoManu(manu):
+    try:
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                                temperature=0.4,
+                                                messages=[{"role": "system",
+                                                           "content": "From now on, I will give you a manufacturer. "
+                                                                      "Return its total carbon emissions over all "
+                                                                      "time in kilograms CO2e and no other words. "},
+                                                          {
+                                                              "role": "user",
+                                                              "content": manu}])
+
+        return response.choices[0].message.content
+
+    except Exception as e:
+        return None
