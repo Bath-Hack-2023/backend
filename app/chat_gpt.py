@@ -43,9 +43,10 @@ def extractInfoMultiple(productNames):
         return None
 
 
-# When given a product name, returns an array of the estimates of the carbon footprint in kgs(?). May
+# When given a product name and product manufacturer, returns an array of the estimates of the carbon footprint in kgs(?). May
 # return None.
-def getCarbonInfoOne(productName):
+def getCarbonInfoOne(productName, productManu):
+    product = f'{productManu} {productName}'
     try:
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
                                                 temperature=0.1,
@@ -56,7 +57,7 @@ def getCarbonInfoOne(productName):
                                                                       "of its life cycle in kg CO2e, and no other words."},
                                                           {
                                                               "role": "user",
-                                                              "content": productName}])
+                                                              "content": product}])
         return response.choices[0].message.content
     except Exception as e:
         return None
@@ -90,6 +91,3 @@ def getCarbonInfoMultiple(productNames):
         return result
     except Exception as e:
         return None
-
-
-
