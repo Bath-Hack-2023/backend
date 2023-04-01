@@ -10,3 +10,5 @@ def getCarbonData(product, manufacturer):
         print("This is an error")
     else:
         return response["carbon_footprint"]
+
+print(getCarbonData("XPS13 9370", "Dell"))
