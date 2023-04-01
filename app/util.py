@@ -19,6 +19,3 @@ def update_state(db, state, client_id):
     })
 
 
-db = get_firestore_client(config.firebase_creds)
-update_state(db, "TEST_STATE", "TEST_ID")
-
