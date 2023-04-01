@@ -8,6 +8,7 @@ def getCarbonData(product, manufacturer):
     if "errors" in response:
         #TODO: Handle error with chatgpt
         print("This is an error")
+        return None
     else:
         print(response)
         return response["carbon_footprint"]

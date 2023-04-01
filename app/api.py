@@ -6,6 +6,7 @@ import config
 from html_parser import *
 from chat_gpt import *
 from util import *
+from ditch_carbon import *
 import time
 
 app = Flask(__name__)
@@ -44,13 +45,21 @@ def get_url():
         
         product_name = product_info[0].strip()
         manufacturer = product_info[1].strip()
+
+        carbon_data = getCarbonData(product_name, manufacturer)
         
 
         # Update state for client
         update_state(db, "Sending data", client_id)
 
+        data = {"product_title": product_title, 
+                "product_name": product_name, 
+                "manufacturer": manufacturer,
+                "carbon_data": carbon_data
+                }
+
         # Respond
-        return jsonify({"error": None, "data":{"product_title": product_title, "product_name": product_name, "manufacturer": manufacturer}}), 200
+        return jsonify({"error": None, "data": data}), 200
 
     except Exception as e:
         print(e)
