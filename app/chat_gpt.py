@@ -22,25 +22,25 @@ def extractInfoOne(productTitle):
         return None
 
 
-# When given an array of product titles, returns the product names and manufacturers as an array. May return None.
-def extractInfoMultiple(productTitles):
+# When given an array of product names, returns the product names and manufacturers as an array. May return None.
+def extractInfoMultiple(productNames):
     pass
 
 
-# When given a product title, returns an array of the estimates of the carbon footprint in kgs(?). May
+# When given a product name, returns an array of the estimates of the carbon footprint in kgs(?). May
 # return None.
-def getCarbonInfo(productTitle):
+def getCarbonInfo(productName):
     try:
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
                                                 messages=[{"role": "system",
                                                            "content": "From now on, I will give you a product title. "
-                                                                      "Return the carbon footprint in kgs and nothing else."},
+                                                                      "Return the carbon footprint in kgs with no other words."},
                                                           {
                                                               "role": "user",
                                                               "content": productTitle}])
-        return response
+        return response.choices[0].message.content
     except Exception as e:
         return None
 
 
-print(extractInfoOne("Apple iPhone 13 (128GB) - Midnight"))
+print(getCarbonInfo("Apple iPhone 13"))
