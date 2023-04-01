@@ -11,5 +11,4 @@ def getCarbonData(product, manufacturer):
     else:
         print(response)
         return response["carbon_footprint"]
-
-getCarbonData("Iphone 13", "apple")
+        

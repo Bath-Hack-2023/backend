@@ -15,19 +15,74 @@ def extractInfoOne(productTitle):
                                                           {
                                                               "role": "user",
                                                               "content": productTitle}])
-        response = response.split(",")
-        return response
+
+        return response.choices[0].message.content.split(",")
+
     except Exception as e:
         return None
 
 
-# When given an array of product titles, returns the product names and manufacturers as an array. May return None.
-def extractInfoMultiple(productTitles):
-    pass
+# When given an array of product names, returns the product names and manufacturers as an array. May return None.
+def extractInfoMultiple(productNames):
+    productNames = str(productNames)
+    try:
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                                messages=[{"role": "system",
+                                                           "content": "From now on, I will give you a list of product titles. "
+                                                                      "For each, return the product name and the manufacturer, "
+                                                                      "split by a comma."},
+                                                          {"role": "user",
+                                                          "content": productNames}])
+
+        print(response)
+        return response.choices[0].message.content.split("\n")
+
+    except Exception as e:
+        print(e)
+        return None
 
 
-# When given an array of product titles, returns an array of the estimates of the carbon footprint in kgs(?). May
+# When given a product name, returns an array of the estimates of the carbon footprint in kgs(?). May
 # return None.
-def getCarbonInfo(productTitles):
-    pass
+def getCarbonInfoOne(productName):
+    try:
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                                temperature=0.1,
+                                                messages=[{"role": "system",
+                                                           "content": "From now on, I will give you a product "
+                                                                      "title."
+                                                                      "Return the carbon emissions "
+                                                                      "of its life cycle in kg CO2e, and no other words."},
+                                                          {
+                                                              "role": "user",
+                                                              "content": productName}])
+        return response.choices[0].message.content
+    except Exception as e:
+        return None
 
+
+# When given a product name, returns an array of the estimates of the carbon footprint in kgs(?). May
+# return None.
+def getCarbonInfoMultiple(productNames):
+    productNames = str(productNames)
+    print(productNames)
+    try:
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                                temperature=0.1,
+                                                messages=[{"role": "system",
+                                                           "content": "From now on, I will give you a list of product "
+                                                                      "titles."
+                                                                      "Return the carbon emissions "
+                                                                      "of its life cycle in kg CO2e for each, split "
+                                                                      "by commas, and no other words."},
+                                                          {
+                                                              "role": "user",
+                                                              "content": productNames}])
+        return response.choices[0].message.content.split(',')
+    except Exception as e:
+        return None
+
+
+
+arrayOfProductNames = ("Apple iPhone 13", "Lenovo V15 G2 ITL Laptop Core i5 8GB 256GB SSD 15.6 Inch Windows 11 Pro", "Dell XPS13 9370")
+print(getCarbonInfoMultiple(arrayOfProductNames))
