@@ -30,7 +30,7 @@ def extractProductTitle(html: str, vendor: str) -> str:
 
     
 
-def getVendor(url: str) -> List[str]:
+def getVendor(url: str) -> str:
     url = url.replace("//", "/")
     domain = url.split("/")[1]
 
@@ -41,7 +41,7 @@ def getVendor(url: str) -> List[str]:
 
 
 
-def getProductTitle(url):
+def getProductTitle(url) -> List[str]:
     try:
         raw_html = getRawHtml(url)
         vendor = getVendor(url)
