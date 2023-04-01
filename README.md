@@ -1,4 +1,4 @@
-# Backend for the c02 product extension
+# Backend for the CO2 product extension
 
 ## Setup and run here:
 TBD
