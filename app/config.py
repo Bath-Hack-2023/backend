@@ -7,5 +7,3 @@ vendor_title_ids = {
 client_status_collection = "client_states"
 client_status_document = "states"
 firebase_creds = os.environ["FIREBASE_CREDS"]
-
-http_port = 6969

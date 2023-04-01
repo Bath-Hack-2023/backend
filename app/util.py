@@ -13,8 +13,9 @@ def get_firestore_client(creds_path):
 
 # Update state for a given client
 def update_state(db, state, client_id):
-    doc_ref = db.collection(config.client_status_collection).document(client_id)
+    doc_ref = db.collection(config.client_status_collection).document(config.client_status_document)
     doc_ref.set({
-        "client_id": client_id,
-        "state": state
+        f'{client_id}': state
     })
+
+

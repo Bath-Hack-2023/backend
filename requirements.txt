@@ -3,4 +3,3 @@ requests
 openai
 flask
 firebase-admin
-flask-cors

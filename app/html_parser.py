@@ -45,10 +45,6 @@ def getProductTitle(url) -> List[str]:
     try:
         raw_html = getRawHtml(url)
         vendor = getVendor(url)
-        
-        if vendor == None:
-            return [None, f"Not a supported site"]
-
         product_title = extractProductTitle(raw_html, vendor)
 
         return [product_title, None]
