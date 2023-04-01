@@ -54,7 +54,8 @@ def getCarbonInfoOne(productName, productManu):
                                                            "content": "From now on, I will give you a product "
                                                                       "title."
                                                                       "Return the carbon emissions "
-                                                                      "of its life cycle in kg CO2e, and no other words."},
+                                                                      "of its life cycle in kg CO2e, and no other "
+                                                                      "words. If you don't know, return 'None'"},
                                                           {
                                                               "role": "user",
                                                               "content": product}])
@@ -75,7 +76,8 @@ def getCarbonInfoMultiple(productNames):
                                                                       "titles."
                                                                       "Return the carbon emissions "
                                                                       "of its life cycle in kg CO2e for each, split "
-                                                                      "by commas, and no other words. "},
+                                                                      "by commas, and no other words. If you don't "
+                                                                      "know, return 'None'"},
                                                           {
                                                               "role": "user",
                                                               "content": productNames}])
