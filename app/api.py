@@ -1,7 +1,5 @@
 import json
-
-from flask import Flask
-import requests
+from flask import Flask, request
 import html_parser
 
 app = Flask(__name__)
@@ -14,6 +12,7 @@ def get_url():
     token = data['token']
     return json.dumps(data)
 
+app.listen
 if __name__ == '__main__':
     app.run()
 
