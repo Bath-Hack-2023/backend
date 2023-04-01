@@ -1,4 +1,5 @@
 beautifulsoup4
 requests
 openai
+flask
 firebase-admin
