@@ -29,7 +29,7 @@ def getGoogleRecommendations(q):
     "location": "United Kingdom",
     "hl": "en",
     "gl": "us",
-    "api_key": "590ae3460ef76094aeefe6521f09436d9e78b40dd1da1fd1e0d7ff6ee466fd6c"
+    "api_key": "943ad0df1235ee4c8ef4a572bf92e371f045266d9150342dc90cccc8f11ee527"
     }
 
     search = GoogleSearch(params)
