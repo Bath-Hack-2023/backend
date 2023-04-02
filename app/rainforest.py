@@ -1,6 +1,14 @@
 import requests
 import json
 
+#Param url: https://www.amazon.co.uk/Oral-B-Toothbrush/dp/B08TMSQ2R7
+#Return: B08TMSQ2R7
+def getasin(url):
+    dp_start = url.find("/dp/")
+    url = url[dp_start+4:]
+    asin_end = url.find("/")
+    asin = url[:asin_end]
+    return asin
 
 # Takes in an asin for amazon and returns an array of data from the amazon page.
 # Param: asin
