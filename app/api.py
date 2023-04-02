@@ -47,7 +47,11 @@ def get_url():
         product_name = product_info[0].strip()
         manufacturer = product_info[1].strip()
 
+        update_state(db, "Getting Carbon Data", client_id)
+
         carbon_data = getCarbonData(product_name, manufacturer)
+        manu_carbon_data = getCarbonDataManu(manufacturer)
+
 
         if carbon_data is None:
             print("Error! carbon_data is None: Neither chat_gpt nor ditch_carbon API could not process request.")
@@ -62,8 +66,8 @@ def get_url():
             del similar_products[0]
             similar_products_extract = extractInfoMultiple([i[0] for i in similar_products])
             similar_products_carbon = getCarbonDataMultiple(similar_products_extract)
-            print(similar_products_carbon)
-
+            print(similar_products_carbon)  
+        
 
         # Update state for client
         update_state(db, "Sending data", client_id)
@@ -71,7 +75,8 @@ def get_url():
         data = {"product_title": product_title, 
                 "product_name": product_name, 
                 "manufacturer": manufacturer,
-                "carbon_data": carbon_data
+                "carbon_data": carbon_data,
+                "manu_carbon_data": manu_carbon_data
                 }
 
         # Respond
@@ -85,7 +90,6 @@ def get_url():
 
     
 
-app.listen
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=config.http_port, debug=True)
+    app.run(host="0.0.0.0", port=config.http_port, debug=True, ssl_context=config.ssl_context)
 
