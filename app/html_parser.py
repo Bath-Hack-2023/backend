@@ -36,6 +36,8 @@ def getVendor(url: str) -> str:
 
     if "amazon" in domain:
         return "amazon"
+    elif "ebay" in domain:
+        return "ebay"
     else:
         return None
 

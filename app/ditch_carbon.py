@@ -28,7 +28,6 @@ def getCarbonDataManu(manu):
     response = requests.get(url, headers=headers).json()
     if "error" in response:
         return getCarbonInfoManuGPT(manu)
-    answer = ""
     if "emissions" in response:
         if "total_kg_co2" in response["emissions"]:
             return  response["emissions"]["total_kg_co2"]
