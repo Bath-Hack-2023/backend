@@ -4,3 +4,4 @@ openai
 flask
 firebase-admin
 flask-cors
+google-search-results

@@ -1,5 +1,6 @@
 import requests
 import json
+from serpapi import GoogleSearch
 
 #Param url: https://www.amazon.co.uk/Oral-B-Toothbrush/dp/B08TMSQ2R7
 #Return: B08TMSQ2R7
@@ -8,6 +9,7 @@ def getasin(url):
     url = url[dp_start+4:]
     asin_end = url.find("/")
     asin = url[:asin_end]
+    asin = asin.split("?")[0]
     return asin
 
 # Takes in an asin for amazon and returns an array of data from the amazon page.
@@ -16,7 +18,7 @@ def getasin(url):
 # Warning: Rating may be None and/or array of products may not exist.
 def getRecommendations(productID):
     params = {
-        'api_key': '47F7D551BEA44E3EB84FA4BFF3FA81F6',
+        'api_key': '22D1A723766D4891B91E6329FC75E6B3',
         'amazon_domain': 'amazon.co.uk',
         'asin': str(productID),
         'type': 'product'

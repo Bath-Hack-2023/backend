@@ -33,9 +33,11 @@ def extractInfoMultiple(productNames):
                                                                       "For each, return the product name and the manufacturer, "
                                                                       "split by a comma."},
                                                           {"role": "user",
-                                                          "content": productNames}])
+                                                          "content": productNames}],
+                                                          temperature = 0.2)
+                                                
 
-        print(response)
+        #print(response)
         return response.choices[0].message.content.split("\n")
 
     except Exception as e:

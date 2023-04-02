@@ -48,9 +48,9 @@ def get_url():
 
         update_state(db, "Getting Carbon Data", client_id)
 
+        # Get Carbon data
         carbon_data = getCarbonData(product_name, manufacturer)
-        manu_carbon_data = getCarbonDataManu(manufacturer)
-        
+        manu_carbon_data = None #getCarbonDataManu(manufacturer)
 
         # Update state for client
         update_state(db, "Sending data", client_id)
@@ -58,8 +58,7 @@ def get_url():
         data = {"product_title": product_title, 
                 "product_name": product_name, 
                 "manufacturer": manufacturer,
-                "carbon_data": carbon_data,
-                "manu_carbon_data": manu_carbon_data
+                "carbon_data": carbon_data
                 }
 
         # Respond
@@ -69,10 +68,33 @@ def get_url():
         print(e)
         update_state(db, f"Error occured: {e}", client_id)
         return jsonify({"error": f"Ooops something went wrong: {e}", "data": None}), 400
+    
+@app.route('/post/recommendations', methods=['POST'])
+def get_recommended():
+    try:
+        # Extract data from request
+        data = request.get_json()
+        product_name = data['product_name']
+
+        
+        try:
+            recommended_products = getRecommendations(product_name)
+        except Exception as e:
+            recommended_products = []
+
+        data = {"recommended": recommended_products}
+
+        # Respond
+        return jsonify({"error": None, "data": data}), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({"error": f"Ooops something went wrong: {e}", "data": None}), 400
+
 
 
     
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=config.http_port, debug=True, ssl_context=config.ssl_context)
+    app.run(host="0.0.0.0", port=config.http_port, ssl_context=config.ssl_context)
 
