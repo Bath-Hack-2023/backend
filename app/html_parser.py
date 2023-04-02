@@ -17,8 +17,6 @@ def getRawHtml(url: str) -> str:
     return html
     
 
-    
-
 def extractProductTitle(html: str, vendor: str) -> str:
     vendor_id = vendor_title_ids[vendor]
 
@@ -29,7 +27,6 @@ def extractProductTitle(html: str, vendor: str) -> str:
     return  title
 
     
-
 def getVendor(url: str) -> str:
     url = url.replace("//", "/")
     domain = url.split("/")[1]
@@ -38,7 +35,6 @@ def getVendor(url: str) -> str:
         return "amazon"
     else:
         return None
-
 
 
 def getProductTitle(url) -> List[str]:

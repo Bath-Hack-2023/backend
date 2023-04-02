@@ -1,6 +1,6 @@
 import openai
-import re
 import config
+import re
 
 # Put key in env file.
 openai.api_key = config.open_ai_creds

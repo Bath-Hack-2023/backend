@@ -1,13 +1,11 @@
-import json
 from flask import Flask, request, jsonify
-from flask_cors import CORS, cross_origin
-import html_parser
-import config
+from flask_cors import CORS
+from ditch_carbon import *
 from html_parser import *
 from chat_gpt import *
 from util import *
-from ditch_carbon import *
-import time
+import config
+
 
 app = Flask(__name__)
 cors = CORS(app)
