@@ -1,5 +1,5 @@
 import requests
-from chat_gpt import getCarbonInfoOne
+from chat_gpt import getCarbonInfoOne, getCarbonInfoManuGPT
 import json
 
 
@@ -27,9 +27,7 @@ def getCarbonDataManu(manu):
 
     response = requests.get(url, headers=headers).json()
     if "errors" in response:
-        response = getCarbonDataManu(manu)
-        if response is not None:
-            return response
-        return None
+        return getCarbonInfoManuGPT(manu)
+    
     return response["emissions"]["total_kg_co2"]
 

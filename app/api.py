@@ -46,7 +46,10 @@ def get_url():
         product_name = product_info[0].strip()
         manufacturer = product_info[1].strip()
 
+        update_state(db, "Getting Carbon Data", client_id)
+
         carbon_data = getCarbonData(product_name, manufacturer)
+        manu_carbon_data = getCarbonDataManu(manufacturer)
         
 
         # Update state for client
@@ -55,7 +58,8 @@ def get_url():
         data = {"product_title": product_title, 
                 "product_name": product_name, 
                 "manufacturer": manufacturer,
-                "carbon_data": carbon_data
+                "carbon_data": carbon_data,
+                "manu_carbon_data": manu_carbon_data
                 }
 
         # Respond

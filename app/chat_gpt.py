@@ -93,7 +93,7 @@ def getCarbonInfoMultiple(productNames):
         return None
 
 
-def getCarbonInfoManu(manu):
+def getCarbonInfoManuGPT(manu):
     try:
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
                                                 temperature=0.4,
