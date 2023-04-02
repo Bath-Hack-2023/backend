@@ -7,6 +7,7 @@ from html_parser import *
 from chat_gpt import *
 from util import *
 from ditch_carbon import *
+from rainforest import *
 import time
 
 app = Flask(__name__)
@@ -39,7 +40,7 @@ def get_url():
         update_state(db, "Extracting product information", client_id)
         product_info = extractInfoOne(product_title)
 
-        if product_info == None:
+        if product_info is None:
             update_state(db, f"Error while extracting product information", client_id)
             return jsonify({"error": f"Error while extracting product information", "data": None}), 200
         
@@ -50,6 +51,22 @@ def get_url():
 
         carbon_data = getCarbonData(product_name, manufacturer)
         manu_carbon_data = getCarbonDataManu(manufacturer)
+
+
+        if carbon_data is None:
+            print("Error! carbon_data is None: Neither chat_gpt nor ditch_carbon API could not process request.")
+
+        # You may want to change the position of the following:
+        productID = "B0116VH81A"  # Get this from the product URL!
+        similar_products = getRecommendations(productID)
+        if isinstance(similar_products[0], int): # check the rating is in the array
+            rating = similar_products[0]
+        if similar_products[1] != False:
+            # We know recommendations[1] is the array
+            del similar_products[0]
+            similar_products_extract = extractInfoMultiple([i[0] for i in similar_products])
+            similar_products_carbon = getCarbonDataMultiple(similar_products_extract)
+            print(similar_products_carbon)  
         
 
         # Update state for client
