@@ -1,8 +1,9 @@
 import openai
 import re
+import config
 
 # Put key in env file.
-openai.api_key = "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"
+openai.api_key = config.open_ai_creds
 
 
 # When given a product title, returns the product name and manufacturer. May return None.

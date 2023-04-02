@@ -7,6 +7,9 @@ vendor_title_ids = {
 client_status_collection = "client_states"
 client_status_document = "states"
 firebase_creds = os.environ["FIREBASE_CREDS"]
+open_ai_creds = os.environ["CHATGPT_API_KEY"]
+carbon_api_creds = os.environ["CARBON_API"]
+google_search_creds = os.environ["GOOGLE_SEARCH_KEY"]
 
 http_port = 6969
 

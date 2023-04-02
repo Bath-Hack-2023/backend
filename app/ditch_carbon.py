@@ -1,11 +1,11 @@
 import requests
 from chat_gpt import getCarbonInfoOne, getCarbonInfoManuGPT
 import json
-
+import config
 
 def getCarbonData(product, manufacturer):
     url = f"https://api.ditchcarbon.com/v1.0/product?name={product}&manufacturer={manufacturer}"
-    headers = {"accept": "application/json", "Authorization": "Bearer 92d3af4ac158430ec82fd01adf0093de"}
+    headers = {"accept": "application/json", "Authorization": f"Bearer {config.carbon_api_creds}"}
     response = (requests.get(url, headers=headers)).json()
     if "errors" in response:
 
@@ -22,7 +22,7 @@ def getCarbonDataManu(manu):
 
     headers = {
         "accept": "application/json",
-        "authorization": "Bearer 92d3af4ac158430ec82fd01adf0093de"
+        "authorization": f"Bearer {config.carbon_api_creds}"
     }
 
     response = requests.get(url, headers=headers).json()
