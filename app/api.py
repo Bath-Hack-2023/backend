@@ -74,9 +74,24 @@ def get_recommended():
     try:
         # Extract data from request
         data = request.get_json()
-        product_name = data['product_name']
+        url = data['url']
 
+        # Get the item title
+        product_title, error = getProductTitle(url)
         
+        # Check if there was an error getting title
+        if error != None:
+            print(error)
+            return jsonify({"error": f"Error occured while parsing html: {error}", "data": None}), 200
+        
+        # Use chat gpt to extract product name and company
+        product_info = extractInfoOne(product_title)
+
+        if product_info == None:
+            return jsonify({"error": f"Error while extracting product information", "data": None}), 200
+        
+        product_name = product_info[0].strip()
+
         try:
             recommended_products = getRecommendations(product_name)
         except Exception as e:

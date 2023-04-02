@@ -44,13 +44,17 @@ def getRecommendations(product):
     recommended_products = []
     recommendations = getGoogleRecommendations(product)
     titles = [i["title"] for i in recommendations]
-    titels_prices = [[i["title"], i["price"]] for i in recommendations]
+    titels_prices = [[i["title"], i["price"], i["link"], i["rating"], i["reviews"], i["thumbnail"]] for i in recommendations]
 
 
     extracted_titles = extractInfoMultiple(titles)
 
     for idx, t in enumerate(extracted_titles):
         price = titels_prices[idx][1]
+        link = titels_prices[idx][2]
+        rating = titels_prices[idx][3]
+        reviews = titels_prices[idx][4]
+        thumbnail = titels_prices[idx][5]
         rec_product = t.strip().split(",")[0].strip()
         rec_manufacturer = t.strip().split(",")[1]
 
@@ -58,7 +62,16 @@ def getRecommendations(product):
         rec_product_co2 = getCarbonData(rec_product, rec_manufacturer)
 
 
-        recommended_products.append({"product": rec_product, "manu": rec_manufacturer, "product_co2": rec_product_co2, "price": price})
+        recommended_products.append({"product": rec_product, 
+                                     "manu": rec_manufacturer, 
+                                     "product_co2": rec_product_co2, 
+                                     "price": price,
+                                     "link": link,
+                                     "rating":rating,
+                                     "reviews":reviews,
+                                     "thumbnail":thumbnail})
 
 
     return recommended_products
+
+getRecommendations("iphone13")
