@@ -44,22 +44,45 @@ def getRecommendations(product):
     recommended_products = []
     recommendations = getGoogleRecommendations(product)
     titles = [i["title"] for i in recommendations]
-    titels_prices = [[i["title"], i["price"], i["link"], i["rating"], i["reviews"], i["thumbnail"]] for i in recommendations]
+    titels_prices = []
 
+    for i in recommendations:
+        recom = []
+
+        recom.append(i["title"])
+        recom.append(i["price"])
+        recom.append(i["link"])
+        recom.append(i["thumbnail"])
+
+        if "rating" in i:
+            recom.append(i["rating"])
+        else:
+            recom.append(None)
+
+        if "reviews" in i:
+            recom.append(i["reviews"])
+        else:
+            recom.append(None)
+
+        titels_prices.append(recom)
+        
 
     extracted_titles = extractInfoMultiple(titles)
+    extracted_titles = [i for i in extracted_titles if len(i)>0]
 
     for idx, t in enumerate(extracted_titles):
         price = titels_prices[idx][1]
         link = titels_prices[idx][2]
-        rating = titels_prices[idx][3]
-        reviews = titels_prices[idx][4]
-        thumbnail = titels_prices[idx][5]
+        thumbnail = titels_prices[idx][3]
+        rating = titels_prices[idx][4]
+        reviews = titels_prices[idx][5]
+        
         rec_product = t.strip().split(",")[0].strip()
         rec_manufacturer = t.strip().split(",")[1]
 
 
         rec_product_co2 = getCarbonData(rec_product, rec_manufacturer)
+        rec_manu_co2 = getCarbonDataManu(rec_manufacturer)
 
 
         recommended_products.append({"product": rec_product, 
@@ -69,9 +92,11 @@ def getRecommendations(product):
                                      "link": link,
                                      "rating":rating,
                                      "reviews":reviews,
-                                     "thumbnail":thumbnail})
+                                     "thumbnail":thumbnail,
+                                     "rec_manu_co2": rec_manu_co2})
 
 
     return recommended_products
 
-getRecommendations("iphone13")
+
+getRecommendations("Monster Energy Ultra Rosa")

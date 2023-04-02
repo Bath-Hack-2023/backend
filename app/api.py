@@ -50,7 +50,7 @@ def get_url():
 
         # Get Carbon data
         carbon_data = getCarbonData(product_name, manufacturer)
-        manu_carbon_data = None #getCarbonDataManu(manufacturer)
+        manu_carbon_data = getCarbonDataManu(manufacturer)
 
         # Update state for client
         update_state(db, "Sending data", client_id)
@@ -58,8 +58,11 @@ def get_url():
         data = {"product_title": product_title, 
                 "product_name": product_name, 
                 "manufacturer": manufacturer,
-                "carbon_data": carbon_data
+                "carbon_data": carbon_data,
+                "manu_carbon_data": manu_carbon_data
                 }
+        
+        print(data)
 
         # Respond
         return jsonify({"error": None, "data": data}), 200

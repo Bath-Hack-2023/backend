@@ -11,11 +11,13 @@ def extractInfoOne(productTitle):
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo",
                                                 messages=[{"role": "system",
                                                            "content": "From now on, I will give you a product title. "
-                                                                      "Return the product name and the manufacturer, "
+                                                                      "Return the product name and then the manufacturer, "
                                                                       "split by a comma."},
                                                           {
                                                               "role": "user",
-                                                              "content": productTitle}])
+                                                              "content": productTitle}],
+                                                temperature = 0.1
+                                                              )
 
         return response.choices[0].message.content.split(",")
 

@@ -34,3 +34,4 @@ def getCarbonDataManu(manu):
             return  response["emissions"]["total_kg_co2"]
     if "ef_kg_co2eq" in response:
         return response["ef_kg_co2eq"]
+
