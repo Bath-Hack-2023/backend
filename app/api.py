@@ -74,5 +74,5 @@ def get_url():
     
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=config.http_port, debug=True)
+    app.run(host="0.0.0.0", port=config.http_port, debug=True, ssl_context=config.ssl_context)
 

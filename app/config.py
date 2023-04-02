@@ -9,3 +9,8 @@ client_status_document = "states"
 firebase_creds = os.environ["FIREBASE_CREDS"]
 
 http_port = 6969
+
+SSL_CERT = os.environ["SSL_CERT"]
+SSL_KEY = os.environ["SSL_KEY"]
+
+ssl_context = (SSL_CERT, SSL_KEY)
